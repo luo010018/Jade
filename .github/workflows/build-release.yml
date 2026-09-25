@@ -11,25 +11,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Select Xcode 26.6
+        run: sudo xcode-select -s /Applications/Xcode_26.6.app/Contents/Developer
+
       - name: Build archive (unsigned)
         run: |
           xcodebuild archive \
             -project Jade.xcodeproj \
             -scheme Jade \
             -configuration Release \
-            -archivePath build/bad_query.xcarchive \
+            -archivePath build/Jade.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM=""
 
-      - name: Package IPA manually
+      - name: Package IPA
         run: |
-          APP_PATH=$(find build/bad_query.xcarchive -name "*.app" | head -1)
+          APP_PATH=$(find build/Jade.xcarchive -name "*.app" | head -1)
           mkdir -p build/Payload
           cp -r "$APP_PATH" build/Payload/
           cd build && zip -r ../Jade.ipa Payload
-          echo "IPA ready: Jade.ipa"
+          echo "Done: Jade.ipa"
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
