@@ -17,8 +17,8 @@ jobs:
       - name: Build archive (unsigned)
         run: |
           xcodebuild archive \
-            -project bad_query.xcodeproj \
-            -scheme bad_query \
+            -project Jade.xcodeproj \
+            -scheme Jade \
             -configuration Release \
             -archivePath build/bad_query.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
@@ -68,8 +68,5 @@ jobs:
           name: BQTools Build #${{ github.run_number }}
           body: |
             Auto-built from commit ${{ github.sha }}
-
-            **Bundle ID:** com.jason.bqtools
-            **Signature:** Unsigned — install via TrollStore or sign manually.
           files: "*.ipa"
           prerelease: true
