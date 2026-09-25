@@ -6,13 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: macos-26
+    runs-on: xcode-27
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Select Xcode 26.6
-        run: sudo xcode-select -s /Applications/Xcode_26.6.app/Contents/Developer
 
       - name: Build archive (unsigned)
         run: |
@@ -32,7 +29,6 @@ jobs:
           mkdir -p build/Payload
           cp -r "$APP_PATH" build/Payload/
           cd build && zip -r ../Jade.ipa Payload
-          echo "Done: Jade.ipa"
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
